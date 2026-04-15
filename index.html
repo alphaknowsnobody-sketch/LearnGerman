@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SprichMit?! — Learn German. Make Friends. Mess Up. Repeat.</title>
+<meta name="description" content="A chill German-speaking community for international students in Aachen. Powered by Enactus." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Caveat:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#FBF3E2;
+    --cream-2:#F4E8CE;
+    --ink:#1A1410;
+    --purple:#6F4DE0;
+    --purple-deep:#4A2FB5;
+    --coral:#F89F8B;
+    --red:#E8423A;
+    --blue:#3D5BF6;
+    --yellow:#F7C948;
+    --green:#2E9E6E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    overflow-x:hidden;
+    line-height:1.5;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(111,77,224,0.06) 0, transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(248,159,139,0.08) 0, transparent 40%);
+  }
+  /* Grain overlay */
+  body::before{
+    content:'';
+    position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity:.18;pointer-events:none;z-index:1000;mix-blend-mode:multiply;
+  }
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+  /* NAV */
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 28px;position:sticky;top:0;z-index:50;
+    background:rgba(251,243,226,0.85);backdrop-filter:blur(8px);
+    border-bottom:1.5px solid rgba(26,20,16,0.08);
+  }
+  .logo{font-family:'Caprasimo',serif;font-size:26px;color:var(--red);letter-spacing:-0.02em}
+  .logo span{color:var(--purple)}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--ink);text-decoration:none;font-weight:500;font-size:15px;transition:color .2s}
+  .nav-links a:hover{color:var(--red)}
+  .nav-cta{
+    background:var(--ink);color:var(--cream);padding:10px 18px;border-radius:999px;
+    font-weight:600;font-size:14px;transition:transform .2s;
+  }
+  .nav-cta:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--red);color:var(--cream)!important}
+
+  /* HERO */
+  .hero{
+    position:relative;padding:80px 0 100px;overflow:hidden;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--ink);color:var(--cream);
+    padding:7px 16px;border-radius:999px;
+    font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
+    margin-bottom:28px;
+  }
+  .eyebrow .dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  h1.headline{
+    font-family:'Caprasimo',serif;
+    font-size:clamp(52px,8.5vw,120px);
+    line-height:0.95;letter-spacing:-0.025em;
+    color:var(--ink);margin-bottom:30px;
+  }
+  h1.headline .red{color:var(--red);display:inline-block;transform:rotate(-2deg)}
+  h1.headline .blue{color:var(--blue)}
+  h1.headline .purple{color:var(--purple)}
+  h1.headline .scribble{
+    position:relative;display:inline-block;
+  }
+  h1.headline .scribble svg{
+    position:absolute;left:-4%;bottom:-12px;width:108%;height:auto;
+  }
+  .lede{
+    font-family:'Fraunces',serif;font-weight:400;
+    font-size:clamp(18px,1.6vw,22px);
+    line-height:1.45;color:#3a2f28;max-width:520px;margin-bottom:36px;
+  }
+  .lede em{font-style:italic;color:var(--purple-deep)}
+
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn-primary{
+    background:var(--red);color:#fff;
+    padding:18px 32px;border-radius:999px;
+    font-weight:700;font-size:16px;text-decoration:none;
+    border:2px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink);
+    transition:all .15s;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+  .btn-ghost{
+    color:var(--ink);text-decoration:none;font-weight:600;
+    padding:18px 24px;display:inline-flex;align-items:center;gap:8px;
+    border-bottom:2px dashed var(--ink);
+  }
+  .btn-ghost:hover{color:var(--red)}
+
+  /* Hero illustration / sticker collage */
+  .hero-art{
+    position:relative;height:520px;
+  }
+  .sticker{
+    position:absolute;background:#fff;border:2.5px solid var(--ink);
+    border-radius:18px;padding:18px;
+    box-shadow:6px 6px 0 var(--ink);
+    transition:transform .3s ease;
+  }
+  .sticker:hover{transform:translate(-3px,-3px) rotate(0deg)!important;box-shadow:9px 9px 0 var(--ink)}
+  .sticker-1{top:0;left:8%;width:230px;background:var(--coral);transform:rotate(-6deg);font-family:'Caveat',cursive;font-size:28px;font-weight:700;line-height:1.1;color:var(--ink)}
+  .sticker-2{top:120px;right:0;width:260px;background:#fff;transform:rotate(4deg)}
+  .sticker-2 .label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);font-weight:700;margin-bottom:6px}
+  .sticker-2 .word{font-family:'Caprasimo',serif;font-size:32px;color:var(--ink);line-height:1}
+  .sticker-2 .trans{font-family:'Fraunces',serif;font-style:italic;font-size:16px;color:#666;margin-top:4px}
+  .sticker-3{
+    bottom:30px;left:15%;width:280px;background:var(--purple);color:#fff;
+    transform:rotate(-3deg);
+  }
+  .sticker-3 .quote{font-family:'Fraunces',serif;font-style:italic;font-size:18px;line-height:1.35}
+  .sticker-3 .who{font-size:13px;margin-top:10px;opacity:.85;font-weight:500}
+  .sticker-4{
+    bottom:0;right:5%;width:180px;background:var(--yellow);
+    transform:rotate(8deg);text-align:center;padding:14px;
+  }
+  .sticker-4 .big{font-family:'Caprasimo',serif;font-size:48px;color:var(--ink);line-height:1}
+  .sticker-4 .small{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+
+  /* Floating doodles */
+  .doodle{position:absolute;pointer-events:none;opacity:.85}
+  .d1{top:50px;right:15%;width:60px;animation:float 6s ease-in-out infinite}
+  .d2{bottom:40%;left:0;width:80px;animation:float 7s ease-in-out infinite reverse}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-15px) rotate(5deg)}}
+
+  /* MARQUEE */
+  .marquee{
+    background:var(--ink);color:var(--cream);
+    padding:18px 0;overflow:hidden;
+    border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+  }
+  .marquee-track{
+    display:flex;gap:50px;white-space:nowrap;
+    animation:scroll 30s linear infinite;
+    font-family:'Caprasimo',serif;font-size:28px;
+  }
+  .marquee-track span{display:inline-flex;align-items:center;gap:50px}
+  .marquee-track .star{color:var(--yellow);font-size:20px}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* SECTION HEADERS */
+  section{padding:110px 0;position:relative}
+  .section-eyebrow{
+    font-family:'Caveat',cursive;font-size:32px;color:var(--red);
+    margin-bottom:8px;display:inline-block;transform:rotate(-2deg);
+  }
+  h2{
+    font-family:'Caprasimo',serif;
+    font-size:clamp(42px,5.5vw,72px);
+    line-height:1;letter-spacing:-0.02em;
+    margin-bottom:28px;max-width:900px;
+  }
+  h2 .accent{color:var(--purple)}
+
+  /* WHAT */
+  .what{background:var(--cream-2);border-top:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink)}
+  .what-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:50px}
+  .what-text p{font-family:'Fraunces',serif;font-size:20px;line-height:1.55;color:#2a221c;margin-bottom:22px}
+  .what-text p:first-child::first-letter{
+    font-family:'Caprasimo',serif;font-size:72px;float:left;
+    line-height:0.9;padding:6px 12px 0 0;color:var(--red);
+  }
+  .promise-card{
+    background:#fff;border:2.5px solid var(--ink);border-radius:20px;
+    padding:32px;box-shadow:8px 8px 0 var(--purple);
+    transform:rotate(1deg);
+  }
+  .promise-card h3{font-family:'Caprasimo',serif;font-size:28px;margin-bottom:18px;color:var(--ink)}
+  .promise-list{list-style:none}
+  .promise-list li{
+    padding:14px 0;border-bottom:1.5px dashed rgba(26,20,16,0.2);
+    display:flex;gap:14px;align-items:flex-start;font-size:16px;
+  }
+  .promise-list li:last-child{border:none}
+  .promise-list .check{
+    flex-shrink:0;width:26px;height:26px;background:var(--green);color:#fff;
+    border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:14px;
+  }
+  .promise-list .x{background:var(--red)}
+
+  /* EVENT CARD */
+  .event-section{position:relative}
+  .event-card{
+    background:#fff;border:3px solid var(--ink);border-radius:24px;
+    padding:50px;margin-top:50px;
+    box-shadow:14px 14px 0 var(--red);
+    display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:center;
+    position:relative;
+  }
+  .event-card::before{
+    content:'FIRST EVENT';
+    position:absolute;top:-18px;left:40px;
+    background:var(--yellow);color:var(--ink);
+    padding:6px 16px;border:2px solid var(--ink);border-radius:999px;
+    font-weight:800;font-size:12px;letter-spacing:.15em;
+  }
+  .event-date{font-family:'Caprasimo',serif;font-size:80px;line-height:1;color:var(--red);margin-bottom:8px}
+  .event-day{font-family:'Caveat',cursive;font-size:32px;color:var(--purple);transform:rotate(-2deg);display:inline-block}
+  .event-title{font-family:'Caprasimo',serif;font-size:36px;margin:18px 0 8px;line-height:1.05}
+  .event-meta{display:grid;gap:10px;margin-top:20px}
+  .meta-row{display:flex;gap:14px;align-items:center;font-size:16px}
+  .meta-row .ico{
+    width:40px;height:40px;background:var(--cream-2);border:2px solid var(--ink);
+    border-radius:10px;display:grid;place-items:center;font-size:18px;flex-shrink:0;
+  }
+  .agenda{background:var(--cream-2);border:2px solid var(--ink);border-radius:16px;padding:24px}
+  .agenda h4{font-family:'Caprasimo',serif;font-size:22px;margin-bottom:14px}
+  .agenda ol{list-style:none;counter-reset:step}
+  .agenda li{
+    counter-increment:step;padding:10px 0 10px 38px;position:relative;
+    font-size:15px;border-bottom:1px dashed rgba(26,20,16,0.15);
+  }
+  .agenda li:last-child{border:none}
+  .agenda li::before{
+    content:counter(step);position:absolute;left:0;top:8px;
+    width:26px;height:26px;background:var(--purple);color:#fff;
+    border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;
+    font-family:'DM Sans',sans-serif;
+  }
+
+  /* PHRASES */
+  .phrases{background:var(--purple);color:#fff;border-top:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink)}
+  .phrases h2{color:#fff}
+  .phrases .section-eyebrow{color:var(--yellow)}
+  .phrases-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;margin-top:50px;
+  }
+  .phrase{
+    background:var(--cream);color:var(--ink);
+    border:2.5px solid var(--ink);border-radius:16px;padding:24px;
+    box-shadow:5px 5px 0 var(--ink);
+    transition:transform .2s;
+  }
+  .phrase:nth-child(odd){transform:rotate(-1deg)}
+  .phrase:nth-child(even){transform:rotate(1deg)}
+  .phrase:hover{transform:rotate(0) translateY(-4px)}
+  .phrase .de{font-family:'Caprasimo',serif;font-size:26px;line-height:1.05;margin-bottom:6px;color:var(--red)}
+  .phrase .en{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:#555}
+  .phrase .ctx{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);font-weight:700;margin-bottom:12px}
+
+  /* WHY */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
+  .why-card{
+    padding:32px;border-radius:20px;border:2.5px solid var(--ink);
+    background:#fff;position:relative;overflow:hidden;
+    transition:transform .25s;
+  }
+  .why-card:hover{transform:translateY(-6px)}
+  .why-card .num{
+    font-family:'Caprasimo',serif;font-size:80px;line-height:0.8;
+    color:var(--ink);opacity:0.08;position:absolute;top:10px;right:18px;
+  }
+  .why-card h3{font-family:'Caprasimo',serif;font-size:26px;margin-bottom:12px;line-height:1.05}
+  .why-card p{font-size:15px;line-height:1.5;color:#3a2f28}
+  .why-1{background:var(--coral)}
+  .why-2{background:var(--yellow)}
+  .why-3{background:#B6E0CB}
+
+  /* ENACTUS / ABOUT */
+  .about{background:var(--ink);color:var(--cream);border-top:2.5px solid var(--ink)}
+  .about h2{color:var(--cream)}
+  .about .section-eyebrow{color:var(--coral)}
+  .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:start;margin-top:40px}
+  .about p{font-family:'Fraunces',serif;font-size:19px;line-height:1.6;margin-bottom:20px;color:#e8dfc8}
+  .about p strong{color:#fff;font-weight:700;font-style:normal}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .stat{
+    background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);
+    border-radius:16px;padding:24px;
+  }
+  .stat .num{font-family:'Caprasimo',serif;font-size:48px;color:var(--yellow);line-height:1}
+  .stat .lbl{font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-top:8px;color:#bdb39c}
+
+  /* CTA */
+  .final-cta{
+    text-align:center;padding:140px 28px;
+    background:var(--cream);position:relative;
+  }
+  .final-cta h2{
+    font-size:clamp(54px,9vw,140px);margin:0 auto 30px;
+  }
+  .final-cta .sub{
+    font-family:'Fraunces',serif;font-size:22px;color:#3a2f28;
+    max-width:560px;margin:0 auto 40px;font-style:italic;
+  }
+  .big-btn{
+    display:inline-block;background:var(--red);color:#fff;
+    padding:24px 48px;border:3px solid var(--ink);border-radius:999px;
+    font-family:'Caprasimo',serif;font-size:28px;text-decoration:none;
+    box-shadow:8px 8px 0 var(--ink);transition:all .2s;
+  }
+  .big-btn:hover{transform:translate(-3px,-3px);box-shadow:11px 11px 0 var(--ink)}
+
+  /* FOOTER */
+  footer{
+    background:var(--ink);color:var(--cream);padding:60px 28px 30px;
+    border-top:3px solid var(--ink);
+  }
+  .footer-grid{
+    max-width:1240px;margin:0 auto;display:grid;
+    grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px;
+  }
+  footer h4{font-family:'Caprasimo',serif;font-size:22px;margin-bottom:14px;color:var(--coral)}
+  footer a{color:var(--cream);text-decoration:none;display:block;padding:6px 0;font-size:15px;opacity:.85}
+  footer a:hover{opacity:1;color:var(--yellow)}
+  .footer-logo{font-family:'Caprasimo',serif;font-size:36px;color:var(--coral)}
+  .footer-logo span{color:var(--yellow)}
+  .footer-tag{font-family:'Fraunces',serif;font-style:italic;color:#bdb39c;margin-top:8px;max-width:340px}
+  .footer-bottom{
+    max-width:1240px;margin:0 auto;padding-top:24px;
+    border-top:1px solid rgba(255,255,255,0.1);
+    display:flex;justify-content:space-between;font-size:13px;color:#999;flex-wrap:wrap;gap:10px;
+  }
+
+  /* Responsive */
+  @media (max-width:900px){
+    .hero-grid,.what-grid,.event-card,.about-grid,.footer-grid{grid-template-columns:1fr;gap:40px}
+    .why-grid{grid-template-columns:1fr}
+    .hero-art{height:480px}
+    .nav-links a:not(.nav-cta){display:none}
+    section{padding:80px 0}
+    .event-card{padding:32px}
+    .event-date{font-size:60px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Sprich<span>Mit?!</span></a>
+  <div class="nav-links">
+    <a href="#what">What</a>
+    <a href="#event">Event</a>
+    <a href="#why">Why</a>
+    <a href="#about">About</a>
+    <a href="https://docs.google.com/forms/d/1X-9ibh8EW_0JJiqN5LGzTknPUWSuPNSXv9qulI1bZtk/viewform" target="_blank" rel="noopener" class="nav-cta">Join the Session →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="doodle d1" viewBox="0 0 100 100"><path d="M10,50 Q30,10 50,50 T90,50" stroke="#E8423A" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+  <svg class="doodle d2" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" stroke="#6F4DE0" stroke-width="4" fill="none" stroke-dasharray="6 8"/></svg>
+
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> First session · 18 April 2026</div>
+      <h1 class="headline">
+        Learn German.<br>
+        <span class="scribble">Make friends.
+          <svg viewBox="0 0 300 20" preserveAspectRatio="none"><path d="M2,14 Q80,2 150,12 T298,8" stroke="#F7C948" stroke-width="8" fill="none" stroke-linecap="round"/></svg>
+        </span><br>
+        <span class="red">Mess up.</span> <span class="purple">Repeat.</span>
+      </h1>
+      <p class="lede">A chill speaking community for international students in Aachen. No grammar drills, no judgment — <em>just real conversations, snacks, and the kind of mistakes that actually teach you something.</em></p>
+      <div class="cta-row">
+        <a href="https://docs.google.com/forms/d/1X-9ibh8EW_0JJiqN5LGzTknPUWSuPNSXv9qulI1bZtk/viewform" target="_blank" rel="noopener" class="btn-primary">Reserve your spot →</a>
+        <a href="#what" class="btn-ghost">What's the deal?</a>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <div class="sticker sticker-1">"I've been here 2 years and still order coffee in English 😩"</div>
+      <div class="sticker sticker-2">
+        <div class="label">Wort des Tages</div>
+        <div class="word">Quatschen</div>
+        <div class="trans">verb. to chat about nothing in particular</div>
+      </div>
+      <div class="sticker sticker-3">
+        <div class="quote">"First time I actually spoke German without rehearsing the sentence in my head three times."</div>
+        <div class="who">— future you, probably</div>
+      </div>
+      <div class="sticker sticker-4">
+        <div class="big">17:00</div>
+        <div class="small">Saturday</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Hallo! <span class="star">★</span> Wie geht's? <span class="star">★</span> Sprich mit mir! <span class="star">★</span> Quatschen wir? <span class="star">★</span> Noch ein Bier, bitte <span class="star">★</span> Ich verstehe nur Bahnhof <span class="star">★</span></span>
+    <span>Hallo! <span class="star">★</span> Wie geht's? <span class="star">★</span> Sprich mit mir! <span class="star">★</span> Quatschen wir? <span class="star">★</span> Noch ein Bier, bitte <span class="star">★</span> Ich verstehe nur Bahnhof <span class="star">★</span></span>
+  </div>
+</div>
+
+<!-- WHAT -->
+<section id="what" class="what">
+  <div class="wrap">
+    <div class="section-eyebrow">So… what is this?</div>
+    <h2>A speaking club where the goal is <span class="accent">to suck loudly</span> and laugh about it.</h2>
+
+    <div class="what-grid">
+      <div class="what-text">
+        <p>You've taken the A1 course. You've watched the YouTube videos. You've downloaded three apps. And then someone says "Hallo, wie geht's?" at the bakery and your brain just… leaves the building.</p>
+        <p>SprichMit?! is the missing piece — a low-stakes space to actually open your mouth and use what you know, with people who get it because they're in the same boat. Native speakers come too. Snacks are involved.</p>
+      </div>
+      <div class="promise-card">
+        <h3>The vibe, in 5 lines</h3>
+        <ul class="promise-list">
+          <li><span class="check">✓</span> Real conversations over coffee</li>
+          <li><span class="check">✓</span> Mistakes are the curriculum</li>
+          <li><span class="check">✓</span> Mixed levels — beginners welcome</li>
+          <li><span class="x">✕</span> No textbooks, no homework</li>
+          <li><span class="x">✕</span> No "now repeat after me"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT -->
+<section id="event" class="event-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Mark your calendar</div>
+    <h2>Our launch session — <span class="accent">come help us figure this out.</span></h2>
+
+    <div class="event-card">
+      <div>
+        <div class="event-date">18.04</div>
+        <div class="event-day">Saturday, 2026</div>
+        <h3 class="event-title">Opening Session: Sprich mit uns!</h3>
+        <p style="font-family:'Fraunces',serif;font-size:17px;color:#3a2f28;margin-top:8px;">A relaxed first meet-up with intros, a guided warm-up, mini role-plays, and free conversation time. We'll send a tiny vocab cheat-sheet beforehand so nobody walks in cold.</p>
+
+        <div class="event-meta">
+          <div class="meta-row"><div class="ico">🕔</div><div><strong>17:00 – 19:00</strong> · Two hours, including snack breaks</div></div>
+          <div class="meta-row"><div class="ico">📍</div><div><strong>Collective Incubator</strong> · Jülicher Straße, Aachen</div></div>
+          <div class="meta-row"><div class="ico">🎟️</div><div><strong>Free</strong> · Limited spots, registration required</div></div>
+        </div>
+      </div>
+
+      <div class="agenda">
+        <h4>What we'll do</h4>
+        <ol>
+          <li>Welcome & icebreakers</li>
+          <li>Warm-up: speed introductions</li>
+          <li>Guided Q&A and mini role-play</li>
+          <li>Free conversation over snacks</li>
+          <li>Wrap-up: what's next for SprichMit?!</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHRASES (cheat sheet preview) -->
+<section class="phrases">
+  <div class="wrap">
+    <div class="section-eyebrow">A taste of the cheat sheet</div>
+    <h2>Five phrases that'll save you on Saturday.</h2>
+
+    <div class="phrases-grid">
+      <div class="phrase">
+        <div class="ctx">When you arrive</div>
+        <div class="de">Hallo, ich heiße…</div>
+        <div class="en">Hi, my name is…</div>
+      </div>
+      <div class="phrase">
+        <div class="ctx">When you're lost</div>
+        <div class="de">Ich verstehe nicht.</div>
+        <div class="en">I don't understand.</div>
+      </div>
+      <div class="phrase">
+        <div class="ctx">The lifesaver</div>
+        <div class="de">Können Sie das wiederholen?</div>
+        <div class="en">Could you say that again?</div>
+      </div>
+      <div class="phrase">
+        <div class="ctx">Small talk gold</div>
+        <div class="de">Woher kommst du?</div>
+        <div class="en">Where are you from?</div>
+      </div>
+      <div class="phrase">
+        <div class="ctx">For the snack table</div>
+        <div class="de">Ich nehme einen Kaffee, bitte.</div>
+        <div class="en">I'll have a coffee, please.</div>
+      </div>
+      <div class="phrase">
+        <div class="ctx">When you nail it</div>
+        <div class="de">Auch gut, danke!</div>
+        <div class="en">Also good, thanks!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="section-eyebrow">Why bother?</div>
+    <h2>Speaking is the part nobody practices — and the part that <span class="accent">actually matters.</span></h2>
+
+    <div class="why-grid">
+      <div class="why-card why-1">
+        <div class="num">01</div>
+        <h3>Apps can't laugh with you</h3>
+        <p>Duolingo won't react when you accidentally call your professor a sausage. Real people will, and you'll never forget the word again.</p>
+      </div>
+      <div class="why-card why-2">
+        <div class="num">02</div>
+        <h3>Network while you learn</h3>
+        <p>Internships, flatmates, study groups, weekend plans — half of life in Germany happens in conversations you didn't plan to have.</p>
+      </div>
+      <div class="why-card why-3">
+        <div class="num">03</div>
+        <h3>Free, student-built</h3>
+        <p>Made by students, for students, under Enactus Aachen. No course fees, no upsells — just show up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="section-eyebrow">Who's behind this?</div>
+    <h2>A small team trying to fix a real problem.</h2>
+
+    <div class="about-grid">
+      <div>
+        <p>SprichMit?! started with a familiar frustration: <strong>thousands of international students learn German on paper but never get fluent</strong> because they don't have anywhere safe to practice it out loud.</p>
+        <p>We're building it as part of <strong>Enactus</strong> — a global network of students using entrepreneurship to solve community problems. This first event is a test. If people show up and have fun, we scale it: regular sessions, level groups, partnerships with cafés and unis across Aachen and beyond.</p>
+        <p style="font-family:'Caveat',cursive;font-size:28px;color:var(--yellow);font-style:normal;">So yeah — come help us prove the idea. ✌️</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="num">1</div>
+          <div class="lbl">Pilot session</div>
+        </div>
+        <div class="stat">
+          <div class="num">∞</div>
+          <div class="lbl">Mistakes welcome</div>
+        </div>
+        <div class="stat">
+          <div class="num">€0</div>
+          <div class="lbl">Cost to attend</div>
+        </div>
+        <div class="stat">
+          <div class="num">2h</div>
+          <div class="lbl">Of pure quatsch</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="signup" class="final-cta">
+  <div class="section-eyebrow">Letzter Aufruf</div>
+  <h2>Sprich<br><span style="color:var(--red)">mit uns.</span></h2>
+  <p class="sub">Saturday, 18 April · 17:00 · Collective Incubator. Bring your worst German. We'll bring the snacks.</p>
+  <a href="https://docs.google.com/forms/d/1X-9ibh8EW_0JJiqN5LGzTknPUWSuPNSXv9qulI1bZtk/viewform" target="_blank" rel="noopener" class="big-btn" id="register-btn">Register now →</a>
+  <p style="margin-top:24px;font-size:14px;color:#666">Spots are limited. We'll send the address & cheat sheet by email.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Sprich<span>Mit?!</span></div>
+      <p class="footer-tag">A student-built German speaking community in Aachen. Powered by Enactus.</p>
+    </div>
+    <div>
+      <h4>Visit</h4>
+      <a href="#what">What it is</a>
+      <a href="#event">Next event</a>
+      <a href="#why">Why join</a>
+      <a href="#about">About us</a>
+    </div>
+    <div>
+      <h4>Stay close</h4>
+      <a href="#">Instagram</a>
+      <a href="#">WhatsApp Group</a>
+      <a href="mailto:hello@sprichmit.de">Email us</a>
+      <a href="#">Enactus Aachen</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 SprichMit?! · Made with ☕ in Aachen</div>
+    <div>Built under Enactus · Imprint · Privacy</div>
+  </div>
+</footer>
+
+<script>
+  // Replace register button href with your real signup link (Tally, Google Form, etc.)
+  // document.getElementById('register-btn').href = 'https://your-form-url';
+</script>
+
+</body>
+</html>
